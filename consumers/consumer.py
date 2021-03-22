@@ -33,7 +33,7 @@ class KafkaConsumer:
         self.broker_properties = {
                 "bootstrap.servers": "PLAINTEXT://localhost:9094",
                 "group.id": "udacity",
-                "auto.offset.reset": "earliest"
+                "auto.offset.reset": "earliest" if offset_earliest else "latest"
         }
 
         if is_avro is True:
@@ -48,7 +48,6 @@ class KafkaConsumer:
         """Callback for when topic assignment takes place"""
         logger.info("on_assign is incomplete - skipping")
         for partition in partitions:
-            if self.offset_earliest:
                 partition.offset = OFFSET_BEGINNING
 
         logger.info("partitions assigned for %s", self.topic_name_pattern)

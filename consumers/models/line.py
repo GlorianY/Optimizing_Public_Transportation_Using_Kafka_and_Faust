@@ -56,7 +56,7 @@ class Line:
 
     def process_message(self, message):
         """Given a kafka message, extract data"""
-        if message.topic() == 'station_topic_output': # Set the conditional correctly to the stations Faust Table
+        if message.topic() == 'org.chicago.cta.stations.table.v1': # Set the conditional correctly to the stations Faust Table
             try:
                 value = json.loads(message.value())
                 self._handle_station(value)
